@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics="">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+
+a{color:#22303F}
+a:hover{color:#C97B4A}
+@keyframes slideIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
+@keyframes slideInLeft{from{transform:translateX(-100%)}to{transform:translateX(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes screenIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes popIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+</style>
+<template id="__bundler_thumbnail" data-bg-color="#8FA283">
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="800" fill="#8FA283"/>
+  <circle cx="600" cy="400" r="170" fill="none" stroke="#FBF6EE" stroke-width="18"/>
+  <ellipse cx="600" cy="400" rx="75" ry="170" fill="none" stroke="#FBF6EE" stroke-width="18"/>
+  <line x1="430" y1="400" x2="770" y2="400" stroke="#FBF6EE" stroke-width="18"/>
+</svg>
+</template>
+</helmet>
+
+<div style="display:flex;flex-direction:column;align-items:center;gap:0;padding:0;box-sizing:border-box">
+
+<sc-if value="{{isDesktopCapable}}" hint-placeholder-val="{{false}}">
+  <div style="display:flex;gap:8px;align-items:center;background:#fff;padding:6px;border-radius:999px;box-shadow:0 1px 3px rgba(34,48,63,0.12)">
+    <button onClick="{{setMobile}}" style="{{mobileBtnStyle}}">Mobile</button>
+    <button onClick="{{setDesktop}}" style="{{desktopBtnStyle}}">Desktop</button>
+  </div>
+</sc-if>
+
+<div style="width:{{frameWidth}};height:{{frameHeight}};max-width:100%;background:#FBF6EE;border-radius:28px;overflow:hidden;position:relative;display:flex;flex-direction:column">
+
+<!-- ===== TOP NAV: DESKTOP ===== -->
+<sc-if value="{{isDesktopNav}}" hint-placeholder-val="{{false}}">
+  <div style="display:flex;align-items:center;gap:32px;padding:20px 40px;background:#FBF6EE;border-bottom:1px solid rgba(34,48,63,0.08)">
+    <button onClick="{{goHome}}" style="background:none;border:none;padding:0;cursor:pointer;font-family:Outfit,sans-serif;font-size:20px;font-weight:700;color:#22303F;letter-spacing:.2px">KidLoop</button>
+    <div style="display:flex;gap:26px;flex:1">
+      <button onClick="{{goHome}}" style="{{navHomeStyle}}" style-hover="color:#C97B4A">Home</button>
+      <button onClick="{{goBuy}}" style="{{navBuyStyle}}" style-hover="color:#C97B4A">Shop</button>
+      <button onClick="{{goSellFromHome}}" style="{{navSellStyle}}" style-hover="color:#C97B4A">Sell</button>
+      <button onClick="{{goAbout}}" style="{{navAboutStyle}}" style-hover="color:#C97B4A">About us</button>
+      <button onClick="{{goFaqs}}" style="{{navFaqStyle}}" style-hover="color:#C97B4A">FAQs</button>
+      <button onClick="{{goContact}}" style="{{navContactStyle}}" style-hover="color:#C97B4A">Contact</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <button onClick="{{goWishlist}}" aria-label="Wishlist" style="background:none;border:none;padding:6px;cursor:pointer;position:relative;color:#22303F">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"></path></svg>
+        <sc-if value="{{wishCount}}" hint-placeholder-val="{{0}}"><span style="position:absolute;top:0;right:0;background:#C0463C;color:#fff;font-size:10px;font-weight:600;border-radius:999px;min-width:16px;height:16px;display:flex;align-items:center;justify-content:center;padding:0 3px">{{wishCount}}</span></sc-if>
+      </button>
+      <button onClick="{{goCart}}" aria-label="Cart" style="background:none;border:none;padding:6px;cursor:pointer;position:relative;color:#22303F">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        <sc-if value="{{cartCount}}" hint-placeholder-val="{{0}}"><span style="position:absolute;top:0;right:0;background:#C0463C;color:#fff;font-size:10px;font-weight:600;border-radius:999px;min-width:16px;height:16px;display:flex;align-items:center;justify-content:center;padding:0 3px">{{cartCount}}</span></sc-if>
+      </button>
+      <button onClick="{{goAccount}}" aria-label="Account" style="background:none;border:none;padding:6px;cursor:pointer;color:#22303F">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.5-4 5-6 8-6s6.5 2 8 6"></path></svg>
+      </button>
+    </div>
+  </div>
+</sc-if>
+
+<!-- ===== TOP NAV: HOME ===== -->
+<sc-if value="{{isHomeNav}}" hint-placeholder-val="{{false}}">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 20px;background:#FBF6EE">
+    <button onClick="{{openMenu}}" aria-label="Menu" style="background:none;border:none;padding:6px;cursor:pointer">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22303F" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <div style="font-size:19px;font-weight:600;color:#22303F;letter-spacing:.2px">KidLoop</div>
+    <button onClick="{{goCart}}" aria-label="Cart" style="background:none;border:none;padding:6px;cursor:pointer;position:relative">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22303F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+      <sc-if value="{{cartCount}}" hint-placeholder-val="{{0}}"><span style="position:absolute;top:0;right:0;background:#C0463C;color:#fff;font-size:10px;font-weight:600;border-radius:999px;min-width:16px;height:16px;display:flex;align-items:center;justify-content:center;padding:0 3px">{{cartCount}}</span></sc-if>
+    </button>
+  </div>
+</sc-if>
+
+<!-- ===== TOP NAV: BACK ===== -->
+<sc-if value="{{isBackNav}}" hint-placeholder-val="{{false}}">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 20px;background:#FBF6EE;border-bottom:1px solid rgba(34,48,63,0.06)">
+    <button onClick="{{goBack}}" aria-label="Back" style="background:none;border:none;padding:6px;cursor:pointer">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22303F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    <div style="font-size:16px;font-weight:600;color:#22303F">{{navTitle}}</div>
+    <button onClick="{{goCart}}" aria-label="Cart" style="background:none;border:none;padding:6px;cursor:pointer;position:relative">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22303F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+      <sc-if value="{{cartCount}}" hint-placeholder-val="{{0}}"><span style="position:absolute;top:0;right:0;background:#C0463C;color:#fff;font-size:10px;font-weight:600;border-radius:999px;min-width:16px;height:16px;display:flex;align-items:center;justify-content:center;padding:0 3px">{{cartCount}}</span></sc-if>
+    </button>
+  </div>
+</sc-if>
+
+<div key="{{screenKey}}" style="flex:1;min-height:0;overflow-y:auto;animation:screenIn .28s ease">
+
+<!-- ===== LOGIN ===== -->
+<sc-if value="{{isLogin}}" hint-placeholder-val="{{false}}">
+  <div style="position:relative;min-height:100%;height:100%;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between">
+    <div style="position:absolute;inset:0">
+      <img src="assets/unpacked/bbece43f-2ad0-45c5-8c23-7c41878ba833.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block" loading="lazy" decoding="async">
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(34,48,63,0.15) 0%,rgba(34,48,63,0.1) 40%,rgba(34,48,63,0.88) 100%);pointer-events:none"></div>
+    </div>
+    <div style="position:relative;padding:28px 28px 0;pointer-events:none">
+      <div style="font-size:22px;font-weight:700;color:#FBF6EE;letter-spacing:.2px">KidLoop</div>
+    </div>
+    <div style="position:relative;padding:24px 28px 40px;display:flex;flex-direction:column;align-items:center;gap:20px">
+      <div style="font-size:19px;font-weight:600;color:#FBF6EE;text-align:center;line-height:1.35">Buy and resell quality pre-loved kids' clothing, safely and affordably.</div>
+      <div style="width:100%;display:flex;flex-direction:column;gap:12px">
+        <button onClick="{{doLogin}}" style="background:#FBF6EE;color:#22303F;border:none;padding:15px;border-radius:999px;font-weight:600;font-size:14px;letter-spacing:.3px;cursor:pointer" style-hover="background:#fff">LOGIN WITH EMAIL</button>
+        <button onClick="{{doLogin}}" style="background:rgba(251,246,238,0.14);color:#FBF6EE;border:1px solid rgba(251,246,238,0.5);padding:15px;border-radius:999px;font-weight:600;font-size:14px;letter-spacing:.3px;cursor:pointer" style-hover="background:rgba(251,246,238,0.24)">LOGIN WITH FACEBOOK</button>
+      </div>
+      <div style="font-size:12.5px;color:rgba(251,246,238,0.85)">Don't have an account? <a href="#" style="font-weight:600;text-decoration:none;color:#FBF6EE" onClick="{{goSignup}}">Sign Up</a></div>
+    </div>
+  </div>
+</sc-if>
+
+<!-- ===== SIGN UP ===== -->
+<sc-if value="{{isSignup}}" hint-placeholder-val="{{false}}">
+  <div style="padding:32px 28px 40px;display:flex;flex-direction:column;gap:22px">
+    <button onClick="{{goLogin}}" aria-label="Back" style="align-self:flex-start;background:none;border:none;padding:6px 6px 6px 0;cursor:pointer">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22303F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    <div>
+      <div style="font-size:22px;font-weight:700;color:#22303F">Create your account</div>
+      <div style="font-size:13px;color:#6B6259;margin-top:6px;line-height:1.5">Join a community that gives kids' clothes a second life.</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <input placeholder="Full name" style="{{inputStyle}}">
+      <input placeholder="Email" style="{{inputStyle}}">
+      <input placeholder="Password" type="password" style="{{inputStyle}}">
+    </div>
+    <button onClick="{{doLogin}}" style="background:#22303F;color:#FBF6EE;border:none;padding:15px;border-radius:999px;font-weight:600;font-size:14px;letter-spacing:.3px;cursor:pointer">CREATE ACCOUNT</button>
+    <div style="font-size:12.5px;color:#6B6259;text-align:center">Already have an account? <a href="#" style="font-weight:600;text-decoration:none" onClick="{{goLogin}}">Log in</a></div>
+  </div>
+</sc-if>
+
+<!-- ===== HOME ===== -->
+<sc-if value="{{isHome}}" hint-placeholder-val="{{false}}">
+  <div style="padding:{{homePad}};display:flex;flex-direction:column;gap:22px;max-width:{{homeMaxWidth}};margin:0 auto">
+    <div style="position:relative;height:{{heroHeight}};margin:{{bleedMargin}}">
+      <div style="position:absolute;inset:0;border-radius:18px;overflow:hidden;background:#22303F;display:flex;flex-direction:column;justify-content:flex-end;padding:16px;box-sizing:border-box">
+        <div style="position:absolute;top:-60px;right:-40px;width:200px;height:200px;border-radius:999px;background:radial-gradient(circle,rgba(143,162,131,0.5) 0%,rgba(34,48,63,0) 70%)"></div>
+        <div style="position:absolute;bottom:-80px;left:-50px;width:190px;height:190px;border-radius:999px;background:radial-gradient(circle,rgba(201,123,74,0.42) 0%,rgba(34,48,63,0) 70%)"></div>
+        <div style="position:relative;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#C9BFAE">Pre-loved, quality checked</div>
+        <div style="position:relative;font-size:17px;font-weight:600;line-height:1.25;color:#FBF6EE;margin-top:5px">Dress them for less, waste nothing</div>
+      </div>
+    </div>
+    <div style="font-size:15px;font-style:italic;color:#22303F;text-align:center;line-height:1.5">"Every outfit deserves a second story."</div>
+    <div style="font-size:12.5px;color:#6B6259;line-height:1.6;text-align:center">KidLoop helps parents buy and resell quality pre-loved kids' clothing safely and affordably — good for your wallet, good for the planet.</div>
+    <div style="display:flex;background:#F1E9DA;border-radius:999px;padding:4px;max-width:{{modeToggleWidth}};align-self:center;width:100%">
+      <button onClick="{{setBuyer}}" style="{{buyerTabStyle}}">Buyer</button>
+      <button onClick="{{setSeller}}" style="{{sellerTabStyle}}">Seller</button>
+    </div>
+    <sc-if value="{{isBuyerMode}}" hint-placeholder-val="{{true}}">
+      <div style="background:#22303F;border-radius:20px;padding:28px 22px;color:#FBF6EE;display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:20px;font-weight:600;line-height:1.3">Buy and resell quality pre-loved kids' clothing safely and affordably.</div>
+        <button onClick="{{goBuy}}" style="align-self:flex-start;background:#8FA283;color:#22303F;border:none;padding:12px 22px;border-radius:999px;font-weight:600;font-size:13px;cursor:pointer" style-hover="background:#7c9070">Start Browsing</button>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between">
+          <div style="font-size:14.5px;font-weight:600;color:#22303F">Shop by category</div>
+          <button onClick="{{goBuy}}" style="background:none;border:none;font-size:12px;font-weight:600;color:#C97B4A;cursor:pointer;padding:0">See all</button>
+        </div>
+        <div style="display:flex;gap:10px;overflow-x:auto;padding-bottom:2px">
+          <button onClick="{{goCatTops}}" style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:7px;background:none;border:none;cursor:pointer;width:72px">
+            <div style="width:56px;height:56px;border-radius:999px;background:#E7DFD1;display:flex;align-items:center;justify-content:center;transition:transform .15s" style-hover="transform:scale(1.06)">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#22303F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3 5 5 3 9l3 1.5V21h12V10.5L21 9l-2-4-4-2"></path><path d="M9 3a3 3 0 0 0 6 0"></path></svg>
+            </div>
+            <div style="font-size:11px;color:#6B6259;text-align:center;line-height:1.2">Tops</div>
+          </button>
+          <button onClick="{{goCatBottoms}}" style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:7px;background:none;border:none;cursor:pointer;width:72px">
+            <div style="width:56px;height:56px;border-radius:999px;background:#D9E0D2;display:flex;align-items:center;justify-content:center;transition:transform .15s" style-hover="transform:scale(1.06)">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#22303F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l1 18h-5l-2-9-2 9H5Z"></path><path d="M6 8h12"></path></svg>
+            </div>
+            <div style="font-size:11px;color:#6B6259;text-align:center;line-height:1.2">Bottoms</div>
+          </button>
+          <button onClick="{{goCatDresses}}" style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:7px;background:none;border:none;cursor:pointer;width:72px">
+            <div style="width:56px;height:56px;border-radius:999px;background:#F0DBCB;display:flex;align-items:center;justify-content:center;transition:transform .15s" style-hover="transform:scale(1.06)">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#22303F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6l-1 4 5 14H5l5-14Z"></path><path d="M9 3a3 3 0 0 0 6 0"></path><path d="M8 12h8"></path></svg>
+            </div>
+            <div style="font-size:11px;color:#6B6259;text-align:center;line-height:1.2">Dresses</div>
+          </button>
+          <button onClick="{{goCatShoes}}" style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:7px;background:none;border:none;cursor:pointer;width:72px">
+            <div style="width:56px;height:56px;border-radius:999px;background:#E3E7EE;display:flex;align-items:center;justify-content:center;transition:transform .15s" style-hover="transform:scale(1.06)">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#22303F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17V9h4l3 2.5 5 1.5c4 1 8 1.4 8 4H2Z"></path><path d="M2 17v2h20v-2"></path><path d="M6 9v3"></path></svg>
+            </div>
+            <div style="font-size:11px;color:#6B6259;text-align:center;line-height:1.2">Shoes</div>
+          </button>
+          <button onClick="{{goCatAccessories}}" style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:7px;background:none;border:none;cursor:pointer;width:72px">
+            <div style="width:56px;height:56px;border-radius:999px;background:#EFE8DA;display:flex;align-items:center;justify-content:center;transition:transform .15s" style-hover="transform:scale(1.06)">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#22303F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16a9 9 0 0 1 18 0"></path><path d="M1.5 16h21"></path><path d="M8 16a4 4 0 0 1 8 0"></path></svg>
+            </div>
+            <div style="font-size:11px;color:#6B6259;text-align:center;line-height:1.2">Accessories</div>
+          </button>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between">
+          <div style="font-size:14.5px;font-weight:600;color:#22303F">New this week</div>
+          <button onClick="{{goBuy}}" style="background:none;border:none;font-size:12px;font-weight:600;color:#C97B4A;cursor:pointer;padding:0">See all</button>
+        </div>
+        <div style="display:flex;gap:14px;overflow-x:auto;padding-bottom:2px">
+          <sc-for list="{{featured}}" as="f" hint-placeholder-count="4">
+            <div onClick="{{f.select}}" style="width:{{featWidth}};flex:{{featFlex}};cursor:pointer;display:flex;flex-direction:column;gap:7px">
+              <div style="position:relative;aspect-ratio:1">
+                <img src="assets/unpacked/bbece43f-2ad0-45c5-8c23-7c41878ba833.webp" alt="KidLoop listing" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:14px" loading="lazy" decoding="async">
+                <button onClick="{{f.toggleWish}}" aria-label="Save to wishlist" style="position:absolute;top:7px;right:7px;width:28px;height:28px;border-radius:999px;border:none;background:rgba(251,246,238,0.92);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 1px 4px rgba(34,48,63,0.16)">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="{{f.heartFill}}" stroke="{{f.heartStroke}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"></path></svg>
+                </button>
+              </div>
+              <div style="font-size:12px;color:#22303F;font-weight:500;line-height:1.3">{{f.name}}</div>
+              <div style="font-size:12.5px;color:#22303F;font-weight:700">${{f.price}}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="position:relative;width:100%;height:220px">
+        <div style="position:absolute;inset:0;border-radius:16px;overflow:hidden;background:#22303F;display:flex;flex-direction:column;justify-content:flex-end;padding:16px;box-sizing:border-box">
+        <div style="position:absolute;top:-60px;right:-40px;width:200px;height:200px;border-radius:999px;background:radial-gradient(circle,rgba(143,162,131,0.5) 0%,rgba(34,48,63,0) 70%)"></div>
+        <div style="position:absolute;bottom:-80px;left:-50px;width:190px;height:190px;border-radius:999px;background:radial-gradient(circle,rgba(201,123,74,0.42) 0%,rgba(34,48,63,0) 70%)"></div>
+        <div style="position:relative;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#C9BFAE">Shop by age</div>
+        <div style="position:relative;font-size:17px;font-weight:600;line-height:1.25;color:#FBF6EE;margin-top:5px">Newborn to 10 years</div>
+      </div>
+      </div>
+
+      <div style="display:flex;flex-direction:{{stackDir}};gap:16px;align-items:stretch">
+      <div style="flex:1.4;background:#F1E9DA;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:14.5px;font-weight:600;color:#22303F">How KidLoop works</div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="width:24px;height:24px;flex-shrink:0;border-radius:999px;background:#22303F;color:#FBF6EE;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">1</div>
+            <div style="font-size:12.5px;color:#6B6259;line-height:1.5"><strong style="color:#22303F">Browse or list.</strong> Find pre-loved pieces, or list what your kid outgrew in minutes.</div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="width:24px;height:24px;flex-shrink:0;border-radius:999px;background:#22303F;color:#FBF6EE;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">2</div>
+            <div style="font-size:12.5px;color:#6B6259;line-height:1.5"><strong style="color:#22303F">Buy safely.</strong> Secure payment and free delivery on every order.</div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="width:24px;height:24px;flex-shrink:0;border-radius:999px;background:#22303F;color:#FBF6EE;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">3</div>
+            <div style="font-size:12.5px;color:#6B6259;line-height:1.5"><strong style="color:#22303F">Loop it again.</strong> When it's outgrown, pass it on to the next family.</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="flex:1;display:flex;flex-direction:{{statsDir}};gap:10px">
+        <div style="flex:1;background:#8FA283;border-radius:16px;padding:16px 12px;text-align:center;color:#FBF6EE">
+          <div style="font-size:20px;font-weight:700">12k+</div>
+          <div style="font-size:10.5px;line-height:1.3;margin-top:3px">outfits rehomed</div>
+        </div>
+        <div style="flex:1;background:#C97B4A;border-radius:16px;padding:16px 12px;text-align:center;color:#FBF6EE">
+          <div style="font-size:20px;font-weight:700">6.8t</div>
+          <div style="font-size:10.5px;line-height:1.3;margin-top:3px">textile waste saved</div>
+        </div>
+        <div style="flex:1;background:#22303F;border-radius:16px;padding:16px 12px;text-align:center;color:#FBF6EE">
+          <div style="font-size:20px;font-weight:700">4.9k</div>
+          <div style="font-size:10.5px;line-height:1.3;margin-top:3px">families looping</div>
+        </div>
+      </div>
+      </div>
+
+      <div style="display:flex;flex-direction:{{stackDir}};gap:16px;align-items:stretch">
+      <div style="flex:1;border:1px solid rgba(34,48,63,0.12);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;gap:2px">
+          <span style="color:#C97B4A;font-size:13px">★★★★★</span>
+        </div>
+        <div style="font-size:13px;color:#22303F;line-height:1.55;font-style:italic">"I've bought half my daughter's winter wardrobe here. Everything arrived clean, folded, and better than described."</div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:32px;height:32px;border-radius:999px;overflow:hidden;flex-shrink:0">
+            <div style="width:100%;height:100%;border-radius:999px;background:#8FA283;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#FBF6EE">HT</div>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:600;color:#22303F">Linh T.</div>
+            <div style="font-size:11px;color:#A79C8D">Mum of two · Da Nang</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="flex:1;background:#22303F;border-radius:20px;padding:24px 22px;display:flex;flex-direction:column;gap:12px;color:#FBF6EE;justify-content:center">
+        <div style="font-size:15.5px;font-weight:600;line-height:1.35">Got a closet full of outgrown clothes?</div>
+        <div style="font-size:12.5px;color:rgba(251,246,238,0.75);line-height:1.5">List them in under three minutes and earn back what you spent.</div>
+        <button onClick="{{goSellFromHome}}" style="align-self:flex-start;background:#C97B4A;color:#FBF6EE;border:none;padding:12px 22px;border-radius:999px;font-weight:600;font-size:13px;cursor:pointer" style-hover="background:#b86c3e">Start Selling</button>
+      </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{isSellerMode}}" hint-placeholder-val="{{false}}">
+      <div style="background:#C97B4A;border-radius:20px;padding:28px 22px;color:#FBF6EE;display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:20px;font-weight:600;line-height:1.3">Turn outgrown clothes into cash. List an item in minutes.</div>
+        <button onClick="{{goSell}}" style="align-self:flex-start;background:#22303F;color:#FBF6EE;border:none;padding:12px 22px;border-radius:999px;font-weight:600;font-size:13px;cursor:pointer">Start Selling</button>
+      </div>
+      <button onClick="{{goSellListings}}" style="background:none;border:1px solid rgba(34,48,63,0.15);padding:14px;border-radius:14px;font-size:13.5px;font-weight:600;color:#22303F;cursor:pointer">View my listings ({{myListingsCount}})</button>
+      <div style="position:relative;width:100%;height:300px">
+        <div style="position:absolute;inset:0;border-radius:16px;overflow:hidden;background:#22303F;display:flex;flex-direction:column;justify-content:flex-end;padding:16px;box-sizing:border-box">
+        <div style="position:absolute;top:-60px;right:-40px;width:200px;height:200px;border-radius:999px;background:radial-gradient(circle,rgba(143,162,131,0.5) 0%,rgba(34,48,63,0) 70%)"></div>
+        <div style="position:absolute;bottom:-80px;left:-50px;width:190px;height:190px;border-radius:999px;background:radial-gradient(circle,rgba(201,123,74,0.42) 0%,rgba(34,48,63,0) 70%)"></div>
+        <div style="position:relative;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#C9BFAE">Selling on KidLoop</div>
+        <div style="position:relative;font-size:17px;font-weight:600;line-height:1.25;color:#FBF6EE;margin-top:5px">Photo, price, post — under 3 minutes</div>
+      </div>
+      </div>
+    </sc-if>
+    <div style="display:flex;justify-content:space-between;gap:10px;padding-top:6px;border-top:1px solid rgba(34,48,63,0.08)">
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;padding-top:16px">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8FA283" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4.5 8-11.5A8 8 0 0 0 4 10.5C4 17.5 12 22 12 22Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        <div style="font-size:12px;font-weight:600;color:#22303F">Our Mission</div>
+        <div style="font-size:11px;color:#6B6259;line-height:1.4">Give kids' clothing a second life instead of the landfill.</div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;padding-top:16px">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C97B4A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/></svg>
+        <div style="font-size:12px;font-weight:600;color:#22303F">Our Vision</div>
+        <div style="font-size:11px;color:#6B6259;line-height:1.4">Every outfit reused and loved again before it's thrown away.</div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;padding-top:16px">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22303F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+        <div style="font-size:12px;font-weight:600;color:#22303F">Trusted</div>
+        <div style="font-size:11px;color:#6B6259;line-height:1.4">Quality-checked listings and safe payments.</div>
+      </div>
+    </div>
+
+    <div style="background:#F1E9DA;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:14px;margin-top:6px">
+      <div style="font-size:13.5px;font-weight:600;color:#22303F">Stay in the loop</div>
+      <div style="font-size:12px;color:#6B6259;line-height:1.5">New drops, seasonal edits, and seller tips — once a month, never spam.</div>
+      <div style="display:flex;gap:8px">
+        <input placeholder="Your email" style="{{inputStyle}}">
+        <button style="background:#22303F;color:#FBF6EE;border:none;padding:0 20px;border-radius:12px;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap">Join</button>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px;padding-top:18px;border-top:1px solid rgba(34,48,63,0.08)">
+      <div style="display:flex;flex-wrap:wrap;gap:18px">
+        <button onClick="{{goAbout}}" style="{{footerLinkStyle}}" style-hover="color:#C97B4A">About us</button>
+        <button onClick="{{goFaqs}}" style="{{footerLinkStyle}}" style-hover="color:#C97B4A">FAQs</button>
+        <button onClick="{{goContact}}" style="{{footerLinkStyle}}" style-hover="color:#C97B4A">Contact</button>
+        <button onClick="{{goAccount}}" style="{{footerLinkStyle}}" style-hover="color:#C97B4A">My account</button>
+      </div>
+      <div style="font-size:10.5px;color:#A79C8D">© 2026 KidLoop · Every outfit deserves a second story.</div>
+    </div>
+  </div>
+</sc-if>
+
+<!-- ===== BUY LISTING ===== -->
+<sc-if value="{{isBuy}}" hint-placeholder-val="{{false}}">
+  <div style="padding:{{pagePad}};max-width:{{pageMaxWidth}};margin:0 auto;display:flex;flex-direction:column;gap:16px">
+    <div style="display:flex;align-items:center;gap:10px;background:#F1E9DA;border-radius:999px;padding:11px 16px">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B6259" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input placeholder="Search items" value="{{searchQuery}}" onChange="{{setSearchQuery}}" style="border:none;background:none;outline:none;font-family:Outfit,sans-serif;font-size:13px;color:#22303F;width:100%">
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="font-size:11.5px;font-weight:600;color:#6B6259;letter-spacing:.2px">CATEGORY</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <sc-for list="{{categoryFilters}}" as="c" hint-placeholder-count="5">
+          <button onClick="{{c.toggle}}" style="{{c.style}}">{{c.label}}</button>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="font-size:11.5px;font-weight:600;color:#6B6259;letter-spacing:.2px">AGE</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <sc-for list="{{ageFilters}}" as="a" hint-placeholder-count="3">
+          <button onClick="{{a.toggle}}" style="{{a.style}}">{{a.label}}</button>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px">
+      <sc-for list="{{products}}" as="p" hint-placeholder-count="6">
+        <div onClick="{{p.select}}" style="cursor:pointer;display:flex;flex-direction:column;gap:8px;transition:transform .15s" style-hover="transform:translateY(-3px)">
+          <div style="position:relative;aspect-ratio:1">
+            <img src="assets/unpacked/bbece43f-2ad0-45c5-8c23-7c41878ba833.webp" alt="KidLoop listing" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:16px" loading="lazy" decoding="async">
+            <span style="position:absolute;top:10px;left:10px;background:{{p.badgeBg}};color:{{p.badgeColor}};font-size:10px;font-weight:600;padding:4px 10px;border-radius:999px;pointer-events:none">{{p.condition}}</span>
+            <button onClick="{{p.toggleWish}}" aria-label="Save to wishlist" style="position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:999px;border:none;background:rgba(251,246,238,0.92);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 1px 4px rgba(34,48,63,0.16);transition:transform .15s" style-hover="transform:scale(1.1)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="{{p.heartFill}}" stroke="{{p.heartStroke}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"></path></svg>
+            </button>
+          </div>
+          <div style="font-size:13px;color:#22303F;font-weight:500;line-height:1.3">{{p.name}}</div>
+          <div style="font-size:14px;color:#22303F;font-weight:700">${{p.price}}</div>
+        </div>
+      </sc-for>
+    </div>
+    <sc-if value="{{noResults}}" hint-placeholder-val="{{false}}">
+      <div style="padding:56px 20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#A79C8D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <div style="font-size:13px;color:#6B6259">No items in this category yet.</div>
+        <div style="font-size:12px;color:#A79C8D">New listings arrive every day — check back soon.</div>
+        <button onClick="{{clearFilters}}" style="margin-top:6px;background:none;border:1px solid rgba(34,48,63,0.2);color:#22303F;padding:11px 22px;border-radius:999px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:Outfit,sans-serif" style-hover="background:#F1E9DA">Clear filters</button>
+      </div>
+    </sc-if>
+  </div>
+</sc-if>
+
+<!-- ===== PRODUCT DETAIL ===== -->
+<sc-if value="{{isDetail}}" hint-placeholder-val="{{false}}">
+  <div style="padding:{{pagePad}};max-width:{{pageMaxWidth}};margin:0 auto;display:flex;flex-direction:{{detailDirection}};gap:24px">
+    <div style="flex:{{detailImageFlex}};position:relative;aspect-ratio:1">
+      <img src="assets/unpacked/bbece43f-2ad0-45c5-8c23-7c41878ba833.webp" alt="KidLoop listing" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:18px" loading="lazy" decoding="async">
+      <button onClick="{{toggleSelectedWish}}" aria-label="Save to wishlist" style="position:absolute;top:12px;right:12px;width:38px;height:38px;border-radius:999px;border:none;background:rgba(251,246,238,0.94);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 6px rgba(34,48,63,0.18);transition:transform .15s" style-hover="transform:scale(1.1)">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="{{selectedHeartFill}}" stroke="{{selectedHeartStroke}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"></path></svg>
+      </button>
+    </div>
+    <div style="flex:{{detailInfoFlex}};display:flex;flex-direction:column;gap:16px">
+      <div>
+        <div style="font-size:19px;font-weight:600;color:#22303F">{{selected.name}}</div>
+        <div style="font-size:19px;font-weight:700;color:#22303F;margin-top:4px">${{selected.price}}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:#6B6259">
+        <div>Color: <span style="color:#22303F;font-weight:500">{{selected.color}}</span></div>
+        <div>Brand: <span style="color:#22303F;font-weight:500">{{selected.brand}}</span></div>
+        <div>Size: <span style="color:#22303F;font-weight:500">{{selected.size}}</span></div>
+        <div>Condition: <span style="background:{{selected.badgeBg}};color:{{selected.badgeColor}};font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;margin-left:4px">{{selected.condition}}</span></div>
+      </div>
+      <button onClick="{{addToCart}}" style="background:#22303F;color:#FBF6EE;border:none;padding:15px;border-radius:999px;font-weight:600;font-size:13.5px;letter-spacing:.3px;cursor:pointer;transition:background .15s" style-hover="background:#33465c">ADD TO BAG</button>
+      <div>
+        <div style="font-size:13px;font-weight:600;color:#22303F;margin-bottom:6px">Product Information</div>
+        <div style="font-size:12.5px;color:#6B6259;line-height:1.6">Gently used, freshly laundered, and quality-checked before listing. Machine washable, true to size.</div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:0 20px 32px;max-width:{{pageMaxWidth}};margin:0 auto">
+    <div style="font-size:13px;font-weight:600;color:#22303F;margin-bottom:12px">You might like</div>
+    <div style="display:flex;gap:14px;overflow-x:auto">
+      <sc-for list="{{relatedProducts}}" as="r" hint-placeholder-count="3">
+        <div onClick="{{r.select}}" style="width:120px;flex-shrink:0;cursor:pointer;display:flex;flex-direction:column;gap:6px">
+          <div style="position:relative;aspect-ratio:1">
+            <img src="assets/unpacked/bbece43f-2ad0-45c5-8c23-7c41878ba833.webp" alt="KidLoop listing" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:14px" loading="lazy" decoding="async">
+          </div>
+          <div style="font-size:12px;color:#22303F;font-weight:500;line-height:1.3">{{r.name}}</div>
+          <div style="font-size:12.5px;color:#22303F;font-weight:700">${{r.price}}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</sc-if>
+
+<!-- ===== CART ===== -->
+<sc-if value="{{isCart}}" hint-placeholder-val="{{false}}">
+  <div style="padding:{{pagePad}};max-width:{{pageMaxWidth}};margin:0 auto;display:flex;flex-direction:{{cartDirection}};gap:24px">
+    <div style="flex:1.4;display:flex;flex-direction:column;gap:14px">
+      <sc-if value="{{hasCartItems}}" hint-placeholder-val="{{true}}">
+        <sc-for list="{{cartItems}}" as="c" hint-placeholder-count="2">
+          <div style="display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid rgba(34,48,63,0.06)">
+            <div style="width:56px;height:56px;flex-shrink:0">
+              <img src="assets/unpacked/bbece43f-2ad0-45c5-8c23-7c41878ba833.webp" alt="KidLoop listing" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:12px" loading="lazy" decoding="async">
+            </div>
+            <div style="flex:1">
+              <div style="font-size:13px;font-weight:500;color:#22303F">{{c.name}}</div>
+              <div style="font-size:13px;font-weight:700;color:#22303F">${{c.price}}</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;background:#F1E9DA;border-radius:999px;padding:4px 10px">
+              <button onClick="{{c.dec}}" style="background:none;border:none;font-size:15px;color:#22303F;cursor:pointer;width:16px">–</button>
+              <span style="font-size:12.5px;font-weight:600;color:#22303F">{{c.qty}}</span>
+              <button onClick="{{c.inc}}" style="background:none;border:none;font-size:15px;color:#22303F;cursor:pointer;width:16px">+</button>
+            </div>
+          </div>
+        </sc-for>
+      </sc-if>
+      <sc-if value="{{cartIsEmpty}}" hint-placeholder-val="{{false}}">
+        <div style="padding:48px 0;text-align:center;color:#6B6259;font-size:13px">Your cart is empty.</div>
+      </sc-if>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#F1E9DA;border-radius:16px;padding:20px;height:fit-content">
+      <div style="display:flex;justify-content:space-between;font-size:13px;color:#6B6259"><span>Free delivery</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:15px;font-weight:700;color:#22303F"><span>Order Total</span><span>${{cartTotal}}</span></div>
+      <button onClick="{{goBuy}}" style="background:none;border:1px solid #22303F;color:#22303F;padding:13px;border-radius:999px;font-weight:600;font-size:12.5px;cursor:pointer">CONTINUE SHOPPING</button>
+      <button onClick="{{goCheckout}}" style="background:#22303F;color:#FBF6EE;border:none;padding:14px;border-radius:999px;font-weight:600;font-size:12.5px;letter-spacing:.3px;cursor:pointer">REVIEW &amp; CHECK OUT</button>
+    </div>
+  </div>
+</sc-if>
+
+<!-- ===== CHECKOUT (single page) ===== -->
+<sc-if value="{{isCheckout}}" hint-placeholder-val="{{false}}">
+  <div style="padding:{{pagePad}};max-width:{{pageMaxWidth}};margin:0 auto;display:flex;flex-direction:{{checkoutDirection}};gap:24px">
+    <div style="flex:1.3;display:flex;flex-direction:column;gap:22px">
+      <div>
+        <div style="font-size:13px;font-weight:600;color:#22303F;margin-bottom:10px">Shipping address</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <input placeholder="Full name" style="{{inputStyle}}">
+          <input placeholder="Address" style="{{inputStyle}}">
+          <input placeholder="City, ZIP" style="{{inputStyle}}">
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:600;color:#22303F;margin-bottom:10px">Payment method</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <label style="{{radioRowStyle}}"><input type="radio" name="pay" defaultChecked="{{true}}">Credit / Debit card</label>
+          <label style="{{radioRowStyle}}"><input type="radio" name="pay">PayPal</label>
+        </div>
+      </div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#F1E9DA;border-radius:16px;padding:20px;height:fit-content">
+      <div style="display:flex;justify-content:space-between;font-size:12.5px;color:#6B6259"><span>Subtotal</span><span>${{cartTotal}}</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:12.5px;color:#6B6259"><span>Delivery</span><span>Free</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:15px;font-weight:700;color:#22303F;margin-top:4px"><span>Total</span><span>${{cartTotal}}</span></div>
+      <button onClick="{{placeOrder}}" disabled="{{isPlacingOrder}}" style="{{placeOrderStyle}}">{{placeOrderLabel}}</button>
+    </div>
+  </div>
+</sc-if>
+
+<!-- ===== ORDER CONFIRMATION ===== -->
+<sc-if value="{{isConfirm}}" hint-placeholder-val="{{false}}">
+  <div style="padding:72px 28px;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center">
+    <div style="width:64px;height:64px;border-radius:999px;background:#8FA283;display:flex;align-items:center;justify-content:center;animation:popIn .35s cubic-bezier(.34,1.56,.64,1)">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FBF6EE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    </div>
+    <div style="font-size:19px;font-weight:700;color:#22303F">Order confirmed!</div>
+    <div style="font-size:13px;color:#6B6259;line-height:1.5">Thanks for shopping thoughtfully. We'll email your receipt and delivery updates.</div>
+    <button onClick="{{finishOrder}}" style="margin-top:12px;background:#22303F;color:#FBF6EE;border:none;padding:14px 26px;border-radius:999px;font-weight:600;font-size:13px;cursor:pointer">Back to Home</button>
+  </div>
+</sc-if>
+
+<!-- ===== SELL WIZARD ===== -->
+<sc-if value="{{isSellFlow}}" hint-placeholder-val="{{false}}">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 20px 4px">
+    <div style="display:flex;gap:6px">
+      <span style="{{dot1}}"></span><span style="{{dot2}}"></span><span style="{{dot3}}"></span><span style="{{dot4}}"></span>
+    </div>
+    <button onClick="{{goHome}}" aria-label="Close" style="background:none;border:none;cursor:pointer">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22303F" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+  </div>
+
+  <sc-if value="{{isSell1}}" hint-placeholder-val="{{false}}">
+    <div style="padding:16px 20px 32px;display:flex;flex-direction:column;gap:18px;max-width:{{wizardMaxWidth}};margin:{{wizardMargin}}">
+      <div style="font-size:17px;font-weight:600;color:#22303F">Add photos</div>
+      <div style="aspect-ratio:1.3">
+        <img src="assets/unpacked/bbece43f-2ad0-45c5-8c23-7c41878ba833.webp" alt="KidLoop listing" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:16px" loading="lazy" decoding="async">
+      </div>
+      <button onClick="{{sellNext}}" style="background:#22303F;color:#FBF6EE;border:none;padding:15px;border-radius:999px;font-weight:600;font-size:13.5px;cursor:pointer">Next</button>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{isSell2}}" hint-placeholder-val="{{false}}">
+    <div style="padding:16px 20px 32px;display:flex;flex-direction:column;gap:16px;max-width:{{wizardMaxWidth}};margin:{{wizardMargin}}">
+      <div style="font-size:17px;font-weight:600;color:#22303F">Item details</div>
+      <input placeholder="Item name" value="{{sellData.name}}" onChange="{{setSellName}}" style="{{inputStyle}}">
+      <input placeholder="Brand" value="{{sellData.brand}}" onChange="{{setSellBrand}}" style="{{inputStyle}}">
+      <input placeholder="Color" value="{{sellData.color}}" onChange="{{setSellColor}}" style="{{inputStyle}}">
+      <div>
+        <div style="font-size:12px;color:#6B6259;margin-bottom:8px">Size</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button onClick="{{setSize06}}" style="{{size06Style}}">0-6m</button>
+          <button onClick="{{setSize612}}" style="{{size612Style}}">6-12m</button>
+          <button onClick="{{setSize1218}}" style="{{size1218Style}}">12-18m</button>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;color:#6B6259;margin-bottom:8px">Condition</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button onClick="{{setCondNew}}" style="{{condNewStyle}}">New with tags</button>
+          <button onClick="{{setCondLike}}" style="{{condLikeStyle}}">Like new</button>
+          <button onClick="{{setCondFair}}" style="{{condFairStyle}}">Fair</button>
+        </div>
+      </div>
+      <button onClick="{{sellNext}}" style="background:#22303F;color:#FBF6EE;border:none;padding:15px;border-radius:999px;font-weight:600;font-size:13.5px;cursor:pointer">Next</button>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{isSell3}}" hint-placeholder-val="{{false}}">
+    <div style="padding:16px 20px 32px;display:flex;flex-direction:column;gap:16px;max-width:{{wizardMaxWidth}};margin:{{wizardMargin}}">
+      <div style="font-size:17px;font-weight:600;color:#22303F">Set your price</div>
+      <input placeholder="Price (USD)" value="{{sellData.price}}" onChange="{{setSellPrice}}" style="{{inputStyle}}">
+      <div style="font-size:12px;color:#6B6259">Free delivery is applied automatically to all listings.</div>
+      <button onClick="{{sellNext}}" style="background:#22303F;color:#FBF6EE;border:none;padding:15px;border-radius:999px;font-weight:600;font-size:13.5px;cursor:pointer">Preview listing</button>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{isSell4}}" hint-placeholder-val="{{false}}">
+    <div style="padding:16px 20px 32px;display:flex;flex-direction:column;gap:18px;max-width:{{wizardMaxWidth}};margin:{{wizardMargin}}">
+      <div style="font-size:17px;font-weight:600;color:#22303F">Preview</div>
+      <div style="display:flex;flex-direction:column;gap:8px;width:180px">
+        <div style="position:relative;aspect-ratio:1">
+          <img src="assets/unpacked/bbece43f-2ad0-45c5-8c23-7c41878ba833.webp" alt="KidLoop listing" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:16px" loading="lazy" decoding="async">
+          <span style="position:absolute;top:10px;left:10px;background:{{previewBadgeBg}};color:{{previewBadgeColor}};font-size:10px;font-weight:600;padding:4px 10px;border-radius:999px;pointer-events:none">{{sellData.condition}}</span>
+        </div>
+        <div style="font-size:13px;color:#22303F;font-weight:500">{{previewName}}</div>
+        <div style="font-size:14px;color:#22303F;font-weight:700">${{previewPrice}}</div>
+      </div>
+      <button onClick="{{publishListing}}" disabled="{{isPublishing}}" style="{{publishBtnStyle}}">{{publishBtnLabel}}</button>
+    </div>
+  </sc-if>
+</sc-if>
+
+<!-- ===== SELL PUBLISHED ===== -->
+<sc-if value="{{isSellDone}}" hint-placeholder-val="{{false}}">
+  <div style="padding:72px 28px;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center">
+    <div style="width:64px;height:64px;border-radius:999px;background:#8FA283;display:flex;align-items:center;justify-content:center;animation:popIn .35s cubic-bezier(.34,1.56,.64,1)">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FBF6EE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    </div>
+    <div style="font-size:19px;font-weight:700;color:#22303F">Your listing is live!</div>
+    <button onClick="{{goSellListings}}" style="margin-top:12px;background:#22303F;color:#FBF6EE;border:none;padding:14px 26px;border-radius:999px;font-weight:600;font-size:13px;cursor:pointer">View my listings</button>
+  </div>
+</sc-if>
+
+<!-- ===== MY LISTINGS ===== -->
+<sc-if value="{{isSellListings}}" hint-placeholder-val="{{false}}">
+  <div style="padding:{{pagePad}};max-width:{{pageMaxWidth}};margin:0 auto;display:flex;flex-direction:column;gap:16px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px">
+      <sc-for list="{{myListings}}" as="l" hint-placeholder-count="2">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="position:relative;aspect-ratio:1">
+            <img src="assets/unpacked/bbece43f-2ad0-45c5-8c23-7c41878ba833.webp" alt="KidLoop listing" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:16px" loading="lazy" decoding="async">
+            <span style="position:absolute;top:10px;left:10px;background:{{l.badgeBg}};color:{{l.badgeColor}};font-size:10px;font-weight:600;padding:4px 10px;border-radius:999px;pointer-events:none">{{l.condition}}</span>
+          </div>
+          <div style="font-size:13px;color:#22303F;font-weight:500">{{l.name}}</div>
+          <div style="font-size:14px;color:#22303F;font-weight:700">${{l.price}}</div>
+        </div>
+      </sc-for>
+    </div>
+    <button onClick="{{goSell}}" style="position:sticky;bottom:16px;background:#22303F;color:#FBF6EE;border:none;padding:15px;border-radius:999px;font-weight:600;font-size:13px;cursor:pointer">+ Sell an item</button>
+  </div>
+</sc-if>
+
+<!-- ===== WISHLIST (empty state) ===== -->
+<sc-if value="{{isWishlist}}" hint-placeholder-val="{{false}}">
+  <sc-if value="{{hasWishItems}}" hint-placeholder-val="{{true}}">
+    <div style="padding:{{pagePad}};max-width:{{pageMaxWidth}};margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px">
+      <sc-for list="{{wishItems}}" as="w" hint-placeholder-count="2">
+        <div onClick="{{w.select}}" style="cursor:pointer;display:flex;flex-direction:column;gap:8px;transition:transform .15s" style-hover="transform:translateY(-3px)">
+          <div style="position:relative;aspect-ratio:1">
+            <img src="assets/unpacked/bbece43f-2ad0-45c5-8c23-7c41878ba833.webp" alt="KidLoop listing" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:16px" loading="lazy" decoding="async">
+            <span style="position:absolute;top:10px;left:10px;background:{{w.badgeBg}};color:{{w.badgeColor}};font-size:10px;font-weight:600;padding:4px 10px;border-radius:999px;pointer-events:none">{{w.condition}}</span>
+            <button onClick="{{w.toggleWish}}" aria-label="Remove from wishlist" style="position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:999px;border:none;background:rgba(251,246,238,0.92);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 1px 4px rgba(34,48,63,0.16)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#C0463C" stroke="#C0463C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"></path></svg>
+            </button>
+          </div>
+          <div style="font-size:13px;color:#22303F;font-weight:500;line-height:1.3">{{w.name}}</div>
+          <div style="font-size:14px;color:#22303F;font-weight:700">${{w.price}}</div>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+  <sc-if value="{{wishIsEmpty}}" hint-placeholder-val="{{false}}">
+    <div style="padding:80px 28px;text-align:center;color:#6B6259;font-size:13px;display:flex;flex-direction:column;align-items:center;gap:10px">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#A79C8D" stroke-width="1.8"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"></path></svg>
+      <div>No saved items yet.</div>
+      <div style="font-size:12px;color:#A79C8D">Tap the heart on any item to save it here.</div>
+    </div>
+  </sc-if>
+</sc-if>
+
+<!-- ===== ACCOUNT ===== -->
+<sc-if value="{{isAccount}}" hint-placeholder-val="{{false}}">
+  <div style="padding:{{aboutPad}};max-width:{{narrowMaxWidth}};margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:14px">
+    <div style="width:76px;height:76px;border-radius:999px;background:#F1E9DA;display:flex;align-items:center;justify-content:center">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#22303F" stroke-width="1.8"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.5-4 5-6 8-6s6.5 2 8 6"></path></svg>
+    </div>
+    <div style="font-size:17px;font-weight:600;color:#22303F">Mai Nguyen</div>
+    <div style="font-size:12.5px;color:#6B6259">mai.nguyen@email.com</div>
+    <div style="font-size:11.5px;color:#A79C8D">Member since 2024</div>
+    <button onClick="{{goHome}}" style="margin-top:10px;background:none;border:1px solid rgba(34,48,63,0.2);color:#22303F;padding:11px 22px;border-radius:999px;font-size:12.5px;font-weight:600;cursor:pointer">Log out</button>
+  </div>
+</sc-if>
+
+<!-- ===== ABOUT ===== -->
+<sc-if value="{{isAbout}}" hint-placeholder-val="{{false}}">
+  <div style="padding:{{aboutPad}};display:flex;flex-direction:column;gap:26px;max-width:{{aboutMaxWidth}};margin:0 auto">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="position:relative;width:100%;height:180px;border-radius:16px;overflow:hidden;background:#22303F;display:flex;flex-direction:column;justify-content:flex-end;padding:18px;box-sizing:border-box">
+        <div style="position:absolute;top:-70px;right:-50px;width:230px;height:230px;border-radius:999px;background:radial-gradient(circle,rgba(143,162,131,0.55) 0%,rgba(34,48,63,0) 70%)"></div>
+        <div style="position:absolute;bottom:-90px;left:-60px;width:220px;height:220px;border-radius:999px;background:radial-gradient(circle,rgba(201,123,74,0.45) 0%,rgba(34,48,63,0) 70%)"></div>
+        <div style="position:relative;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#C9BFAE">Our mission</div>
+        <div style="position:relative;font-size:19px;font-weight:600;line-height:1.25;color:#FBF6EE;margin-top:6px">Keep every outfit in the loop</div>
+      </div>
+      <div style="font-size:20px;font-weight:700;color:#22303F;line-height:1.3;text-wrap:pretty">Save our Earth, one wardrobe at a time</div>
+      <div style="font-size:13px;color:#6B6259;line-height:1.65">KidLoop connects parents so children's clothes get a second life instead of a landfill — safe, affordable, and good for the planet.</div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="font-size:11.5px;font-weight:600;color:#A79C8D;letter-spacing:.6px">OUR STORY</div>
+      <div style="font-size:13px;color:#6B6259;line-height:1.65">It started with a wardrobe. Two mums, three kids, and a mountain of barely-worn clothes that were outgrown in a season. Passing them on took weeks of messages, meetups, and guesswork — so we built the thing we wished existed.</div>
+      <div style="font-size:13px;color:#6B6259;line-height:1.65">Today KidLoop is a marketplace where every listing is quality-checked, every order ships free, and every outfit gets to keep going.</div>
+    </div>
+
+    <div style="display:flex;gap:10px">
+      <div style="flex:1;background:#8FA283;border-radius:16px;padding:18px 12px;text-align:center;color:#FBF6EE">
+        <div style="font-size:21px;font-weight:700">12k+</div>
+        <div style="font-size:10.5px;line-height:1.3;margin-top:4px">outfits rehomed</div>
+      </div>
+      <div style="flex:1;background:#C97B4A;border-radius:16px;padding:18px 12px;text-align:center;color:#FBF6EE">
+        <div style="font-size:21px;font-weight:700">6.8t</div>
+        <div style="font-size:10.5px;line-height:1.3;margin-top:4px">textile waste saved</div>
+      </div>
+      <div style="flex:1;background:#22303F;border-radius:16px;padding:18px 12px;text-align:center;color:#FBF6EE">
+        <div style="font-size:21px;font-weight:700">4.9k</div>
+        <div style="font-size:10.5px;line-height:1.3;margin-top:4px">families looping</div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="font-size:11.5px;font-weight:600;color:#A79C8D;letter-spacing:.6px">WHAT WE STAND FOR</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;gap:14px;align-items:flex-start;background:#F1E9DA;border-radius:16px;padding:16px">
+          <svg width="22" height="22" style="flex-shrink:0;margin-top:2px" viewBox="0 0 24 24" fill="none" stroke="#8FA283" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4.5 8-11.5A8 8 0 0 0 4 10.5C4 17.5 12 22 12 22Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:#22303F">Circular by default</div>
+            <div style="font-size:12px;color:#6B6259;line-height:1.5;margin-top:3px">Clothes are made to be worn many times, by many kids.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;background:#F1E9DA;border-radius:16px;padding:16px">
+          <svg width="22" height="22" style="flex-shrink:0;margin-top:2px" viewBox="0 0 24 24" fill="none" stroke="#C97B4A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6Z"/><polyline points="9 12 11 14 15 10"/></svg>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:#22303F">Safe for little ones</div>
+            <div style="font-size:12px;color:#6B6259;line-height:1.5;margin-top:3px">Freshly laundered, quality-checked, honestly described.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;background:#F1E9DA;border-radius:16px;padding:16px">
+          <svg width="22" height="22" style="flex-shrink:0;margin-top:2px" viewBox="0 0 24 24" fill="none" stroke="#22303F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2 20c1.2-3.4 4-5 7-5s5.8 1.6 7 5"/><path d="M17 8.5a3 3 0 0 1 0 5"/></svg>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:#22303F">Parents first</div>
+            <div style="font-size:12px;color:#6B6259;line-height:1.5;margin-top:3px">Fair prices, free delivery, and a community that helps.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="font-size:11.5px;font-weight:600;color:#A79C8D;letter-spacing:.6px">THE TEAM</div>
+      <div style="display:flex;gap:14px">
+        <div style="flex:1;display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center">
+          <div style="width:68px;height:68px;border-radius:999px;background:#8FA283;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:600;color:#FBF6EE;letter-spacing:.02em">MN</div>
+          <div style="font-size:12.5px;font-weight:600;color:#22303F">Mai Nguyen</div>
+          <div style="font-size:11px;color:#A79C8D;line-height:1.3">Co-founder</div>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center">
+          <div style="width:68px;height:68px;border-radius:999px;background:#C97B4A;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:600;color:#FBF6EE;letter-spacing:.02em">LT</div>
+          <div style="font-size:12.5px;font-weight:600;color:#22303F">Linh Tran</div>
+          <div style="font-size:11px;color:#A79C8D;line-height:1.3">Co-founder</div>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center">
+          <div style="width:68px;height:68px;border-radius:999px;background:#22303F;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:600;color:#FBF6EE;letter-spacing:.02em">DP</div>
+          <div style="font-size:12.5px;font-weight:600;color:#22303F">Duc Pham</div>
+          <div style="font-size:11px;color:#A79C8D;line-height:1.3">Community</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#22303F;border-radius:20px;padding:24px 22px;display:flex;flex-direction:column;gap:12px;color:#FBF6EE">
+      <div style="font-size:15.5px;font-weight:600;line-height:1.35">Join the loop</div>
+      <div style="font-size:12.5px;color:rgba(251,246,238,0.75);line-height:1.5">Start browsing, or list the first thing your kid outgrew this year.</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button onClick="{{goBuy}}" style="background:#8FA283;color:#22303F;border:none;padding:12px 22px;border-radius:999px;font-weight:600;font-size:13px;cursor:pointer">Browse items</button>
+        <button onClick="{{goSellFromHome}}" style="background:none;border:1px solid rgba(251,246,238,0.45);color:#FBF6EE;padding:12px 22px;border-radius:999px;font-weight:600;font-size:13px;cursor:pointer">Sell an item</button>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<!-- ===== FAQS ===== -->
+<sc-if value="{{isFaqs}}" hint-placeholder-val="{{false}}">
+  <div style="padding:{{aboutPad}};max-width:{{narrowMaxWidth}};margin:0 auto;display:flex;flex-direction:column;gap:10px">
+    <sc-for list="{{faqs}}" as="f" hint-placeholder-count="4">
+      <div style="border-bottom:1px solid rgba(34,48,63,0.08);padding-bottom:10px">
+        <div onClick="{{f.toggle}}" style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;padding:8px 0">
+          <span style="font-size:13.5px;font-weight:500;color:#22303F">{{f.q}}</span>
+          <span style="{{f.iconStyle}}">+</span>
+        </div>
+        <sc-if value="{{f.open}}" hint-placeholder-val="{{false}}"><div style="font-size:12.5px;color:#6B6259;line-height:1.6;padding:0 0 6px">{{f.a}}</div></sc-if>
+      </div>
+    </sc-for>
+  </div>
+</sc-if>
+
+<!-- ===== CONTACT ===== -->
+<sc-if value="{{isContact}}" hint-placeholder-val="{{false}}">
+  <div style="padding:{{aboutPad}};max-width:{{narrowMaxWidth}};margin:0 auto;display:flex;flex-direction:column;gap:16px">
+    <div style="width:100%;height:{{contactBannerHeight}}">
+      <div style="position:absolute;inset:0;border-radius:16px;overflow:hidden;background:#22303F;display:flex;flex-direction:column;justify-content:flex-end;padding:16px;box-sizing:border-box">
+        <div style="position:absolute;top:-60px;right:-40px;width:200px;height:200px;border-radius:999px;background:radial-gradient(circle,rgba(143,162,131,0.5) 0%,rgba(34,48,63,0) 70%)"></div>
+        <div style="position:absolute;bottom:-80px;left:-50px;width:190px;height:190px;border-radius:999px;background:radial-gradient(circle,rgba(201,123,74,0.42) 0%,rgba(34,48,63,0) 70%)"></div>
+        <div style="position:relative;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#C9BFAE">We reply fast</div>
+        <div style="position:relative;font-size:17px;font-weight:600;line-height:1.25;color:#FBF6EE;margin-top:5px">One business day, every message</div>
+      </div>
+    </div>
+    <div style="font-size:13px;color:#6B6259;line-height:1.6">We usually reply within one business day.</div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="font-size:13.5px;color:#22303F"><strong>Email</strong> · hello@kidloop.co</div>
+      <div style="font-size:13.5px;color:#22303F"><strong>Hotline</strong> · (555) 018-2094</div>
+      <div style="font-size:13.5px;color:#22303F"><strong>Social</strong> · @kidloop.co</div>
+    </div>
+  </div>
+</sc-if>
+
+</div>
+
+<!-- ===== BOTTOM TABS ===== -->
+<sc-if value="{{showTabs}}" hint-placeholder-val="{{false}}">
+  <div style="display:flex;justify-content:space-around;align-items:center;padding:14px 8px;border-top:1px solid rgba(34,48,63,0.08);background:#FBF6EE">
+    <button onClick="{{goHome}}" style="background:none;border:none;cursor:pointer;color:{{tabHomeColor}}"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></button>
+    <button onClick="{{goBuy}}" style="background:none;border:none;cursor:pointer;color:{{tabBuyColor}}"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg></button>
+    <button onClick="{{goWishlist}}" style="background:none;border:none;cursor:pointer;color:{{tabWishlistColor}}"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"></path></svg></button>
+    <button onClick="{{goAccount}}" style="background:none;border:none;cursor:pointer;color:{{tabAccountColor}}"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.5-4 5-6 8-6s6.5 2 8 6"></path></svg></button>
+  </div>
+</sc-if>
+
+<!-- ===== HAMBURGER MENU OVERLAY ===== -->
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{false}}">
+  <div onClick="{{closeMenu}}" style="position:absolute;inset:0;background:rgba(34,48,63,0.35);z-index:5;animation:fadeIn .15s ease"></div>
+  <div style="position:absolute;top:0;left:0;bottom:0;width:70%;background:#FBF6EE;z-index:6;padding:24px 22px;display:flex;flex-direction:column;gap:4px;animation:slideInLeft .2s ease">
+    <button onClick="{{closeMenu}}" style="align-self:flex-start;background:none;border:none;cursor:pointer;margin-bottom:16px">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22303F" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    <div style="display:flex;background:#F1E9DA;border-radius:999px;padding:4px;margin-bottom:14px">
+      <button onClick="{{menuSetBuyer}}" style="{{buyerTabStyle}}">Buyer</button>
+      <button onClick="{{menuSetSeller}}" style="{{sellerTabStyle}}">Seller</button>
+    </div>
+    <button onClick="{{goAccount}}" style="{{menuItemStyle}}" style-hover="color:#C97B4A">My account</button>
+    <button onClick="{{goAbout}}" style="{{menuItemStyle}}" style-hover="color:#C97B4A">About us</button>
+    <button onClick="{{goFaqs}}" style="{{menuItemStyle}}" style-hover="color:#C97B4A">FAQs</button>
+    <button onClick="{{goContact}}" style="{{menuItemStyle}}" style-hover="color:#C97B4A">Contact us</button>
+  </div>
+</sc-if>
+
+</div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 390, &quot;height&quot;: 844}, &quot;initialScreen&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;home&quot;, &quot;options&quot;: [&quot;login&quot;, &quot;home&quot;, &quot;buy&quot;, &quot;detail&quot;, &quot;cart&quot;, &quot;checkout&quot;, &quot;sellListings&quot;, &quot;wishlist&quot;, &quot;about&quot;], &quot;tsType&quot;: &quot;string&quot;}, &quot;defaultMode&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;buyer&quot;, &quot;options&quot;: [&quot;buyer&quot;, &quot;seller&quot;], &quot;tsType&quot;: &quot;string&quot;}, &quot;showDesktopToggle&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;}}">
+const CONDITIONS = {
+  'New with tags': { bg: '#8FA283', color: '#FBF6EE' },
+  'Like new': { bg: '#C97B4A', color: '#FBF6EE' },
+  'Fair': { bg: '#E7DFD1', color: '#22303F' },
+};
+
+const BASE_PRODUCTS = [
+  { id: 1, name: 'Kids long sleeve UV suit', price: 40, brand: 'H&M', size: '0-6 months', color: 'Yellow', condition: 'New with tags', category: 'Tops', ageGroup: '0-6 months' },
+  { id: 2, name: 'Organic cotton onesie', price: 22, brand: "Carter's", size: '6-12 months', color: 'Cream', condition: 'Like new', category: 'Tops', ageGroup: '6-12 months' },
+  { id: 3, name: 'Corduroy overalls', price: 28, brand: 'Zara Kids', size: '12-18 months', color: 'Terracotta', condition: 'Fair', category: 'Bottoms', ageGroup: '12-18 months' },
+  { id: 4, name: 'Knit cardigan', price: 18, brand: 'H&M', size: '0-6 months', color: 'Sage', condition: 'Like new', category: 'Tops', ageGroup: '0-6 months' },
+  { id: 5, name: 'Floral ruffle-collar blouse', price: 15, brand: 'Bonpoint', size: '6-12 months', color: 'Cream floral', condition: 'New with tags', category: 'Tops', ageGroup: '6-12 months' },
+  { id: 6, name: 'Striped sun hat', price: 12, brand: 'Mayoral', size: '6-12 months', color: 'Cream', condition: 'Fair', category: 'Accessories', ageGroup: '6-12 months' },
+  { id: 7, name: 'Linen pinafore dress', price: 26, brand: 'Zara Kids', size: '12-18 months', color: 'Sage', condition: 'Like new', category: 'Dresses', ageGroup: '12-18 months' },
+  { id: 8, name: 'Soft-sole first shoes', price: 16, brand: "Carter's", size: '6-12 months', color: 'Terracotta', condition: 'New with tags', category: 'Shoes', ageGroup: '6-12 months' },
+];
+
+const CATEGORY_OPTIONS = ['Tops', 'Bottoms', 'Dresses', 'Shoes', 'Accessories'];
+const AGE_OPTIONS = ['0-6 months', '6-12 months', '12-18 months'];
+
+const SAMPLE_LISTINGS = [
+  { id: 101, name: 'Fleece jacket', price: 25, condition: 'Like new' },
+  { id: 102, name: 'Denim dungarees', price: 20, condition: 'Fair' },
+];
+
+const FAQ_DATA = [
+  { id: 1, q: 'How do I know an item is safe and clean?', a: 'Every seller confirms items are freshly laundered and quality-checked before listing.' },
+  { id: 2, q: 'What if the item doesn\u2019t fit?', a: 'You can request a return within 7 days of delivery for a full refund.' },
+  { id: 3, q: 'How does selling work?', a: 'List an item in a few minutes, and buyers can purchase it directly \u2014 you ship once sold.' },
+  { id: 4, q: 'Is delivery really free?', a: 'Yes, standard delivery is included on every order at no extra cost.' },
+];
+
+class Component extends DCLogic {
+  state = {
+    screen: this.props.initialScreen || 'login',
+    cart: ['cart', 'checkout'].includes(this.props.initialScreen) ? { 1: 1, 2: 1 } : {},
+    mode: this.props.defaultMode || 'buyer',
+    deviceView: 'mobile',
+    menuOpen: false,
+    wishlist: {},
+    selectedId: null,
+    sellStep: 1,
+    photoAdded: false,
+    sellData: { name: '', brand: '', color: '', size: '0-6 months', condition: 'New with tags', price: '' },
+    myListings: SAMPLE_LISTINGS.slice(),
+    faqOpen: {},
+    filterCategory: null,
+    filterAge: null,
+    searchQuery: '',
+    isPublishing: false,
+    isPlacingOrder: false,
+  };
+
+  nav(screen) { this.setState({ screen, menuOpen: false }); }
+
+  renderVals() {
+    const s = this.state;
+    const showDesktopToggle = this.props.showDesktopToggle ?? false;
+    const desktopCapable = ['home', 'buy', 'detail', 'cart', 'checkout', 'sell1', 'sell2', 'sell3', 'sell4', 'about', 'faqs', 'contact', 'wishlist', 'account', 'sellListings', 'confirm', 'sellDone'].includes(s.screen);
+    const isDesktop = showDesktopToggle && desktopCapable && s.deviceView === 'desktop';
+
+    const chipSelEarly = 'background:#22303F;color:#FBF6EE;border:none;padding:9px 14px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer';
+    const chipUnselEarly = 'background:#F1E9DA;color:#22303F;border:none;padding:9px 14px;border-radius:999px;font-size:12px;cursor:pointer';
+    const categoryFilters = CATEGORY_OPTIONS.map(label => ({
+      label,
+      style: s.filterCategory === label ? chipSelEarly : chipUnselEarly,
+      toggle: () => this.setState(st => ({ filterCategory: st.filterCategory === label ? null : label })),
+    }));
+    const ageFilters = AGE_OPTIONS.map(label => ({
+      label,
+      style: s.filterAge === label ? chipSelEarly : chipUnselEarly,
+      toggle: () => this.setState(st => ({ filterAge: st.filterAge === label ? null : label })),
+    }));
+
+    const toggleWish = id => e => {
+      if (e && e.stopPropagation) e.stopPropagation();
+      this.setState(st => {
+        const w = { ...st.wishlist };
+        if (w[id]) delete w[id]; else w[id] = true;
+        return { wishlist: w };
+      });
+    };
+    const decorate = p => ({
+      ...p,
+      badgeBg: CONDITIONS[p.condition].bg,
+      badgeColor: CONDITIONS[p.condition].color,
+      heartFill: s.wishlist[p.id] ? '#C0463C' : 'none',
+      heartStroke: s.wishlist[p.id] ? '#C0463C' : '#22303F',
+      toggleWish: toggleWish(p.id),
+      select: () => this.setState({ selectedId: p.id, screen: 'detail' }),
+    });
+
+    const products = BASE_PRODUCTS
+      .filter(p => (!s.filterCategory || p.category === s.filterCategory) && (!s.filterAge || p.ageGroup === s.filterAge) && p.name.toLowerCase().includes(s.searchQuery.toLowerCase()))
+      .map(decorate);
+    const wishItems = BASE_PRODUCTS.filter(p => s.wishlist[p.id]).map(decorate);
+
+    const selectedBase = BASE_PRODUCTS.find(p => p.id === s.selectedId) || BASE_PRODUCTS[0];
+    const selected = { ...selectedBase, badgeBg: CONDITIONS[selectedBase.condition].bg, badgeColor: CONDITIONS[selectedBase.condition].color };
+    const relatedProducts = BASE_PRODUCTS
+      .filter(p => p.id !== selected.id)
+      .sort((a, b) => (a.category === selected.category ? -1 : 0) - (b.category === selected.category ? -1 : 0))
+      .slice(0, 3)
+      .map(p => ({ ...p, select: () => this.setState({ selectedId: p.id, screen: 'detail' }) }));
+
+    const cartItems = Object.entries(s.cart).filter(([, qty]) => qty > 0).map(([id, qty]) => {
+      const p = BASE_PRODUCTS.find(x => x.id === Number(id));
+      return {
+        ...p, qty,
+        inc: () => this.setState(st => ({ cart: { ...st.cart, [id]: st.cart[id] + 1 } })),
+        dec: () => this.setState(st => ({ cart: { ...st.cart, [id]: Math.max(0, st.cart[id] - 1) } })),
+      };
+    });
+    const cartCount = cartItems.reduce((a, c) => a + c.qty, 0);
+    const cartTotal = cartItems.reduce((a, c) => a + c.qty * c.price, 0);
+
+    const myListings = s.myListings.map(l => ({ ...l, badgeBg: CONDITIONS[l.condition].bg, badgeColor: CONDITIONS[l.condition].color }));
+
+    const faqs = FAQ_DATA.map(f => ({
+      ...f,
+      open: !!s.faqOpen[f.id],
+      toggle: () => this.setState(st => ({ faqOpen: { ...st.faqOpen, [f.id]: !st.faqOpen[f.id] } })),
+      iconStyle: `font-size:16px;color:#22303F;transform:rotate(${s.faqOpen[f.id] ? 45 : 0}deg);transition:transform .15s`,
+    }));
+
+    const tabBtn = (active, other) => active ? '#22303F' : '#A79C8D';
+    const navLink = active => `background:none;border:none;padding:0;cursor:pointer;font-family:Outfit,sans-serif;font-size:13.5px;font-weight:${active ? 600 : 500};color:${active ? '#22303F' : '#6B6259'};border-bottom:2px solid ${active ? '#C97B4A' : 'transparent'};padding-bottom:2px`;
+    const pillActive = 'background:#22303F;color:#FBF6EE;flex:1;border:none;padding:10px;border-radius:999px;font-weight:600;font-size:12.5px;cursor:pointer';
+    const pillInactive = 'background:none;color:#6B6259;flex:1;border:none;padding:10px;border-radius:999px;font-weight:500;font-size:12.5px;cursor:pointer';
+    const chipSel = 'background:#22303F;color:#FBF6EE;border:none;padding:9px 14px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer';
+    const chipUnsel = 'background:#F1E9DA;color:#22303F;border:none;padding:9px 14px;border-radius:999px;font-size:12px;cursor:pointer';
+
+    return {
+      isDesktopCapable: showDesktopToggle && desktopCapable,
+      mobileBtnStyle: `border:none;background:${!isDesktop ? '#22303F' : 'transparent'};color:${!isDesktop ? '#FBF6EE' : '#6B6259'};padding:7px 16px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer`,
+      desktopBtnStyle: `border:none;background:${isDesktop ? '#22303F' : 'transparent'};color:${isDesktop ? '#FBF6EE' : '#6B6259'};padding:7px 16px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer`,
+      setMobile: () => this.setState({ deviceView: 'mobile' }),
+      setDesktop: () => this.setState({ deviceView: 'desktop' }),
+      frameWidth: isDesktop ? '1100px' : '390px',
+
+      screenKey: s.screen,
+      isLogin: s.screen === 'login',
+      doLogin: () => this.nav('home'),
+      isSignup: s.screen === 'signup',
+      goSignup: () => this.nav('signup'),
+      goLogin: () => this.nav('login'),
+
+      isDesktopNav: isDesktop,
+      navHomeStyle: navLink(s.screen === 'home'),
+      navBuyStyle: navLink(s.screen === 'buy' || s.screen === 'detail'),
+      navSellStyle: navLink(['sell1', 'sell2', 'sell3', 'sell4', 'sellListings'].includes(s.screen)),
+      navAboutStyle: navLink(s.screen === 'about'),
+      navFaqStyle: navLink(s.screen === 'faqs'),
+      navContactStyle: navLink(s.screen === 'contact'),
+      homeMaxWidth: isDesktop ? '1000px' : '520px',
+      homePad: isDesktop ? '28px 40px 56px' : '8px 20px 32px',
+      heroHeight: isDesktop ? '360px' : '170px',
+      modeToggleWidth: isDesktop ? '320px' : 'none',
+      featWidth: isDesktop ? 'auto' : '132px',
+      featFlex: isDesktop ? '1 1 0' : '0 0 132px',
+      stackDir: isDesktop ? 'row' : 'column',
+      statsDir: isDesktop ? 'column' : 'row',
+      aboutMaxWidth: isDesktop ? '900px' : '560px',
+      aboutPad: isDesktop ? '32px 40px 56px' : '20px 24px 40px',
+      frameHeight: isDesktop ? 'auto' : '844px',
+      bleedMargin: isDesktop ? '0' : '-8px -20px 0',
+      bleedRadius: isDesktop ? '20' : '0',
+      narrowMaxWidth: isDesktop ? '680px' : 'none',
+      pageMaxWidth: isDesktop ? '960px' : 'none',
+      pagePad: isDesktop ? '28px 40px 48px' : '16px 20px 32px',
+      contactBannerHeight: isDesktop ? '260px' : '130px',
+
+      isHomeNav: !isDesktop && ['home'].includes(s.screen),
+      isBackNav: !isDesktop && ['buy', 'detail', 'cart', 'checkout', 'wishlist', 'account', 'about', 'faqs', 'contact', 'sellListings'].includes(s.screen),
+      navTitle: { buy: 'Buy', detail: selected.name, cart: 'Your Cart', checkout: 'Checkout', wishlist: 'Wishlist', account: 'My Account', about: 'About us', faqs: 'FAQs', contact: 'Contact us', sellListings: 'My Listings' }[s.screen] || '',
+      goBack: () => this.nav(s.screen === 'detail' ? 'buy' : s.screen === 'checkout' ? 'cart' : 'home'),
+      goCart: () => this.nav('cart'),
+      cartCount,
+
+      openMenu: () => this.setState({ menuOpen: true }),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      menuOpen: s.menuOpen,
+      menuItemStyle: 'text-align:left;background:none;border:none;padding:14px 4px;font-size:14.5px;font-weight:500;color:#22303F;cursor:pointer;border-bottom:1px solid rgba(34,48,63,0.06)',
+      goAccount: () => this.nav('account'),
+      goAbout: () => this.nav('about'),
+      goFaqs: () => this.nav('faqs'),
+      goContact: () => this.nav('contact'),
+
+      isHome: s.screen === 'home',
+      isBuyerMode: s.mode === 'buyer',
+      isSellerMode: s.mode === 'seller',
+      buyerTabStyle: s.mode === 'buyer' ? pillActive : pillInactive,
+      sellerTabStyle: s.mode === 'seller' ? pillActive : pillInactive,
+      setBuyer: () => this.setState({ mode: 'buyer' }),
+      setSeller: () => this.setState({ mode: 'seller' }),
+      menuSetBuyer: () => this.setState({ mode: 'buyer', screen: 'home', menuOpen: false }),
+      menuSetSeller: () => this.setState({ mode: 'seller', screen: 'home', menuOpen: false }),
+      goBuy: () => this.nav('buy'),
+      goSell: () => this.setState({ screen: 'sell1', sellStep: 1, photoAdded: false, sellData: { name: '', brand: '', color: '', size: '0-6 months', condition: 'New with tags', price: '' } }),
+      goSellListings: () => this.nav('sellListings'),
+      myListingsCount: s.myListings.length,
+
+      goCatTops: () => this.setState({ filterCategory: 'Tops', screen: 'buy' }),
+      goCatBottoms: () => this.setState({ filterCategory: 'Bottoms', screen: 'buy' }),
+      goCatDresses: () => this.setState({ filterCategory: 'Dresses', screen: 'buy' }),
+      goCatShoes: () => this.setState({ filterCategory: 'Shoes', screen: 'buy' }),
+      goCatAccessories: () => this.setState({ filterCategory: 'Accessories', screen: 'buy' }),
+      featured: BASE_PRODUCTS.slice(0, 4).map(decorate),
+      goSellFromHome: () => this.setState({ mode: 'seller', screen: 'sell1', sellStep: 1, sellData: { name: '', brand: '', color: '', size: '0-6 months', condition: 'New with tags', price: '' } }),
+      footerLinkStyle: 'background:none;border:none;padding:0;font-size:12.5px;font-weight:500;color:#22303F;cursor:pointer;font-family:Outfit,sans-serif',
+
+      isBuy: s.screen === 'buy',
+      products, categoryFilters, ageFilters,
+      noResults: products.length === 0,
+      clearFilters: () => this.setState({ filterCategory: null, filterAge: null, searchQuery: '' }),
+      searchQuery: s.searchQuery,
+      setSearchQuery: e => this.setState({ searchQuery: e.target.value }),
+
+      isDetail: s.screen === 'detail',
+      selected,
+      detailDirection: isDesktop ? 'row' : 'column',
+      detailImageFlex: isDesktop ? '1' : 'none',
+      detailInfoFlex: isDesktop ? '1' : 'none',
+      addToCart: () => this.setState(st => ({ cart: { ...st.cart, [selected.id]: (st.cart[selected.id] || 0) + 1 }, screen: 'cart' })),
+      relatedProducts,
+
+      isCart: s.screen === 'cart',
+      cartItems, hasCartItems: cartItems.length > 0, cartIsEmpty: cartItems.length === 0, cartTotal,
+      cartDirection: isDesktop ? 'row' : 'column',
+      goCheckout: () => this.nav('checkout'),
+
+      isCheckout: s.screen === 'checkout',
+      inputStyle: 'border:1px solid rgba(34,48,63,0.15);background:#fff;padding:13px 14px;border-radius:12px;font-size:13px;font-family:Outfit,sans-serif;color:#22303F;outline:none;width:100%;box-sizing:border-box',
+      radioRowStyle: 'display:flex;align-items:center;gap:10px;font-size:13px;color:#22303F',
+      checkoutDirection: isDesktop ? 'row' : 'column',
+      isPlacingOrder: s.isPlacingOrder,
+      placeOrderStyle: `background:${s.isPlacingOrder ? '#6B7480' : '#22303F'};color:#FBF6EE;border:none;padding:15px;border-radius:999px;font-weight:600;font-size:13.5px;letter-spacing:.3px;cursor:${s.isPlacingOrder ? 'default' : 'pointer'}`,
+      placeOrderLabel: s.isPlacingOrder ? 'Placing order…' : 'PLACE ORDER',
+      placeOrder: () => {
+        this.setState({ isPlacingOrder: true });
+        setTimeout(() => this.setState({ screen: 'confirm', isPlacingOrder: false }), 700);
+      },
+
+      isConfirm: s.screen === 'confirm',
+      finishOrder: () => this.setState({ screen: 'home', cart: {} }),
+
+      isSellFlow: ['sell1', 'sell2', 'sell3', 'sell4'].includes(s.screen),
+      isSell1: s.screen === 'sell1', isSell2: s.screen === 'sell2', isSell3: s.screen === 'sell3', isSell4: s.screen === 'sell4',
+      dot1: `width:7px;height:7px;border-radius:999px;background:${s.screen >= 'sell1' ? '#22303F' : '#E7DFD1'}`,
+      dot2: `width:7px;height:7px;border-radius:999px;background:${['sell2', 'sell3', 'sell4'].includes(s.screen) ? '#22303F' : '#E7DFD1'}`,
+      dot3: `width:7px;height:7px;border-radius:999px;background:${['sell3', 'sell4'].includes(s.screen) ? '#22303F' : '#E7DFD1'}`,
+      dot4: `width:7px;height:7px;border-radius:999px;background:${s.screen === 'sell4' ? '#22303F' : '#E7DFD1'}`,
+      goHome: () => this.nav('home'),
+      sellNext: () => this.setState(st => ({ screen: 'sell' + (Number(st.screen.slice(4)) + 1) })),
+      wizardMaxWidth: isDesktop ? '480px' : 'none',
+      wizardMargin: isDesktop ? '0 auto' : '0',
+
+      photoAdded: s.photoAdded,
+      photoBg: s.photoAdded ? '#F1E9DA' : 'transparent',
+      photoLabel: s.photoAdded ? 'Photo added \u2713' : 'Tap to add photo',
+      togglePhoto: () => this.setState(st => ({ photoAdded: !st.photoAdded })),
+
+      sellData: s.sellData,
+      setSellName: e => this.setState(st => ({ sellData: { ...st.sellData, name: e.target.value } })),
+      setSellBrand: e => this.setState(st => ({ sellData: { ...st.sellData, brand: e.target.value } })),
+      setSellColor: e => this.setState(st => ({ sellData: { ...st.sellData, color: e.target.value } })),
+      setSellPrice: e => this.setState(st => ({ sellData: { ...st.sellData, price: e.target.value } })),
+      setSize06: () => this.setState(st => ({ sellData: { ...st.sellData, size: '0-6 months' } })),
+      setSize612: () => this.setState(st => ({ sellData: { ...st.sellData, size: '6-12 months' } })),
+      setSize1218: () => this.setState(st => ({ sellData: { ...st.sellData, size: '12-18 months' } })),
+      size06Style: s.sellData.size === '0-6 months' ? chipSel : chipUnsel,
+      size612Style: s.sellData.size === '6-12 months' ? chipSel : chipUnsel,
+      size1218Style: s.sellData.size === '12-18 months' ? chipSel : chipUnsel,
+      setCondNew: () => this.setState(st => ({ sellData: { ...st.sellData, condition: 'New with tags' } })),
+      setCondLike: () => this.setState(st => ({ sellData: { ...st.sellData, condition: 'Like new' } })),
+      setCondFair: () => this.setState(st => ({ sellData: { ...st.sellData, condition: 'Fair' } })),
+      condNewStyle: s.sellData.condition === 'New with tags' ? chipSel : chipUnsel,
+      condLikeStyle: s.sellData.condition === 'Like new' ? chipSel : chipUnsel,
+      condFairStyle: s.sellData.condition === 'Fair' ? chipSel : chipUnsel,
+
+      previewName: s.sellData.name || 'Untitled item',
+      previewPrice: s.sellData.price || '0',
+      previewBadgeBg: CONDITIONS[s.sellData.condition].bg,
+      previewBadgeColor: CONDITIONS[s.sellData.condition].color,
+      isPublishing: s.isPublishing,
+      publishBtnStyle: `background:${s.isPublishing ? '#6B7480' : '#22303F'};color:#FBF6EE;border:none;padding:15px;border-radius:999px;font-weight:600;font-size:13.5px;letter-spacing:.3px;cursor:${s.isPublishing ? 'default' : 'pointer'}`,
+      publishBtnLabel: s.isPublishing ? 'Publishing…' : 'PUBLISH',
+      publishListing: () => {
+        this.setState({ isPublishing: true });
+        const newItem = { id: Date.now(), name: s.sellData.name || 'Untitled item', price: Number(s.sellData.price) || 0, condition: s.sellData.condition };
+        setTimeout(() => this.setState(st => ({ myListings: [newItem, ...st.myListings], screen: 'sellDone', isPublishing: false })), 700);
+      },
+
+      isSellDone: s.screen === 'sellDone',
+      isSellListings: s.screen === 'sellListings',
+      myListings,
+
+      isWishlist: s.screen === 'wishlist',
+      goWishlist: () => this.nav('wishlist'),
+      wishItems, hasWishItems: wishItems.length > 0, wishIsEmpty: wishItems.length === 0,
+      selectedHeartFill: s.wishlist[selected.id] ? '#C0463C' : 'none',
+      selectedHeartStroke: s.wishlist[selected.id] ? '#C0463C' : '#22303F',
+      toggleSelectedWish: toggleWish(selected.id),
+
+      isAccount: s.screen === 'account',
+      isAbout: s.screen === 'about',
+      isFaqs: s.screen === 'faqs',
+      faqs,
+      isContact: s.screen === 'contact',
+
+      wishCount: wishItems.length,
+      showTabs: !isDesktop && ['home', 'buy', 'wishlist', 'account', 'sellListings'].includes(s.screen),
+      tabHomeColor: tabBtn(s.screen === 'home'), tabBuyColor: tabBtn(s.screen === 'buy' || s.screen === 'sellListings'),
+      tabWishlistColor: tabBtn(s.screen === 'wishlist'), tabAccountColor: tabBtn(s.screen === 'account'),
+    };
+  }
+}
+</script>
+</body>
+</html>
